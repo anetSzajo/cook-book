@@ -18,9 +18,13 @@ export default function Home() {
 
     async function handleFindButton(query: string) {
         setFindButtonClicked(true);
+        if (recentQueries.includes(query)){
+            setRecipesData(getRecipesFromHistory(query));
+            return;
+        }
         try {
             const getRecipesData: AxiosResponse<RecipeModel[]> = await Api.Api.searchRecipesByIngredients(query) as any
-            setRecipesData(getRecipesData.data)
+            setRecipesData(getRecipesData.data);
             addQueryToHistory(query, getRecipesData.data);
             setRecentQueries(previousState => [query, ...previousState]);
         } catch (err) {
