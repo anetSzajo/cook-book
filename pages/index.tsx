@@ -8,20 +8,29 @@ import NavBar from "../components/navBar";
 import Api from '../Api';
 import {AxiosResponse} from "axios";
 import {RecipeModel} from "../model/recipe/recipeModel";
+import {addQueryToHistory, getRecipesFromHistory} from "../lib/history";
 
 export default function Home() {
 
     const [isFindButtonClicked, setFindButtonClicked] = React.useState(false);
     const [recipesData, setRecipesData] = React.useState([]);
+    const [recentQueries, setRecentQueries] = React.useState([]);
 
     async function handleFindButton(query: string) {
         setFindButtonClicked(true);
         try {
             const getRecipesData: AxiosResponse<RecipeModel[]> = await Api.Api.searchRecipesByIngredients(query) as any
             setRecipesData(getRecipesData.data)
+            addQueryToHistory(query, getRecipesData.data);
+            setRecentQueries(previousState => [query, ...previousState]);
         } catch (err) {
             alert("Error occurred! " + err)
         }
+    }
+
+    const handleHistoryLinkClicked = (query: string) => {
+        setRecipesData(getRecipesFromHistory(query));
+        setFindButtonClicked(true);
     }
 
     return (
@@ -38,8 +47,7 @@ export default function Home() {
                 <FindRecipes handleFindButton={handleFindButton}/>
             </GridItem>
             <GridItem colSpan={{base: 1, md: 1}} rowSpan={2}>
-                <History
-                    recentQueries={["Pizza", "Burger", "Cake", "Nuddle", "Cheese", "Egg", "Soup", "Chocolate", "Muffin", "Ice creams"]}/>
+                <History queries={recentQueries} handleHistoryLinkClicked={handleHistoryLinkClicked}/>
             </GridItem>
             <GridItem colSpan={{base: 1, md: 4}} rowSpan={3}>
                 {isFindButtonClicked ?

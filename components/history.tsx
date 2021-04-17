@@ -1,10 +1,11 @@
-import {Box, Heading, Link, ListItem, OrderedList} from "@chakra-ui/react";
+import {Box, Heading, ListItem, OrderedList} from "@chakra-ui/react";
 
 type ComponentProps = {
-    recentQueries: Array<string>
+    queries: Array<string>,
+    handleHistoryLinkClicked: Function
 }
 
-export default function History({recentQueries}: ComponentProps) {
+export default function History({queries, handleHistoryLinkClicked}: ComponentProps) {
     return (
         <Box d="flex" flexDirection="column" alignItems="center" justifyContent="center" h="100%"
              borderLeft={{md: "1px solid lightgray"}}
@@ -15,9 +16,10 @@ export default function History({recentQueries}: ComponentProps) {
             </Heading>
             <Box overflowY="scroll" d="flex" alignItems="center" justifyContent="center" w="100%" paddingTop="8px">
                 <OrderedList h="100%">
-                    {recentQueries.map(query =>
-                        <ListItem key={query}>
-                            <Link href={`/${query}`}>{query}</Link>
+                    {queries.slice(0, 10).map((historyItem, index) =>
+                        <ListItem key={`${historyItem}-${index}`}>
+                            <a href='#' title={historyItem}
+                               onClick={() => handleHistoryLinkClicked(historyItem)}>{historyItem}</a>
                         </ListItem>
                     )}
                 </OrderedList>
