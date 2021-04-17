@@ -14,7 +14,7 @@ export default function Home() {
 
     const [isFindButtonClicked, setFindButtonClicked] = React.useState(false);
     const [recipesData, setRecipesData] = React.useState([]);
-    const [recentQueries, setRecentQueries] = React.useState([]);
+    const [recentQueries, setRecentQueries] = React.useState(Object.keys(localStorage));
 
     async function handleFindButton(query: string) {
         setFindButtonClicked(true);
