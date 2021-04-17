@@ -1,6 +1,5 @@
 import {Box, Heading} from "@chakra-ui/react";
 import Head from "next/head";
-import React from "react";
 
 export default function NavBar() {
     return (

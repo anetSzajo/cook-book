@@ -1,29 +1,12 @@
-import '../styles/globals.css'
-import {ChakraProvider, extendTheme, Theme} from "@chakra-ui/react"
+import {ChakraProvider} from "@chakra-ui/react";
+import '../styles/globals.css';
 
-const theme: Theme = extendTheme({
-        sizes: {
-            container: {
-                lg: {
-                    h: "50px",
-                    fontSize: "lg",
-                    px: "30px",
-                },
-                xl: {
-                    h: "80px",
-                    fontSize: "lg",
-                    px: "30px",
-                }
-            }
-        },
-})
-
-function MyApp({ Component, pageProps }) {
-  return (
-    <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
-  )
+function MyApp({Component, pageProps}) {
+    return (
+        <ChakraProvider>
+            <Component {...pageProps} />
+        </ChakraProvider>
+    )
 }
 
 export default MyApp

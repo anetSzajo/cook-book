@@ -1,6 +1,5 @@
 import {Box, Image} from "@chakra-ui/react"
 import {RecipeModel} from "../model/recipe/recipeModel";
-import React from "react";
 
 type ComponentProps = {
     recipe: RecipeModel

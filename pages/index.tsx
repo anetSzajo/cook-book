@@ -1,26 +1,28 @@
-import Head from 'next/head';
-import {Box, Button, Center, Container, Flex, Heading, Input} from "@chakra-ui/react"
+import {Grid, GridItem} from "@chakra-ui/react"
 import React from "react";
 import History from "../components/history";
 import RecipesList from "../components/recipesList";
-import {Grid, GridItem} from "@chakra-ui/react"
 import Footer from "../components/footer";
 import FindRecipes from "../components/findRecipes";
 import NavBar from "../components/navBar";
-
+import Api from '../Api';
+import {AxiosResponse} from "axios";
+import {RecipeModel} from "../model/recipe/recipeModel";
 
 export default function Home() {
 
     const [isFindButtonClicked, setFindButtonClicked] = React.useState(false);
+    const [recipesData, setRecipesData] = React.useState([]);
 
-    const handleFindButton = (query: string) => {
-        // const encodedUrl = `/recipe/complexSearch?recipe=${encodeURIComponent(query)}`
+    async function handleFindButton(query: string) {
         setFindButtonClicked(true);
+        try {
+            const getRecipesData: AxiosResponse<RecipeModel[]> = await Api.Api.searchRecipesByIngredients(query) as any
+            setRecipesData(getRecipesData.data)
+        } catch (err) {
+            alert("Error occurred! " + err)
+        }
     }
-
-// klucz: utf8, wartosc: odpowiedz z api
-// zrob zapytanie do api
-// dodaj wartosc do mapy gdzie kluczem bedzie path i wartoscia odpowiedz z api
 
     return (
         <Grid
@@ -29,23 +31,24 @@ export default function Home() {
             templateColumns={{base: "1fr", md: "repeat(4, 1fr)"}}
             gap={4}
         >
-            <GridItem colSpan={{base: 1, md: 4}} rowSpan={1}  bg="lightGray">
-               <NavBar />
+            <GridItem colSpan={{base: 1, md: 4}} rowSpan={1} bg="lightGray">
+                <NavBar/>
             </GridItem>
             <GridItem colSpan={{base: 1, md: 3}} rowSpan={2}>
                 <FindRecipes handleFindButton={handleFindButton}/>
             </GridItem>
             <GridItem colSpan={{base: 1, md: 1}} rowSpan={2}>
-                <History recentQueries={["Pizza", "Burger", "Cake", "Nuddle", "Cheese", "Egg", "Soup", "Chocolate", "Muffin", "Ice creams"]}/>
+                <History
+                    recentQueries={["Pizza", "Burger", "Cake", "Nuddle", "Cheese", "Egg", "Soup", "Chocolate", "Muffin", "Ice creams"]}/>
             </GridItem>
             <GridItem colSpan={{base: 1, md: 4}} rowSpan={3}>
                 {isFindButtonClicked ?
-                    <RecipesList/>
+                    <RecipesList recipes={recipesData}/>
                     :
                     null
                 }
             </GridItem>
-            <GridItem colSpan={{base: 0.5, md: 4}} rowSpan={1}  bg="lightGray">
+            <GridItem colSpan={{base: 0.5, md: 4}} rowSpan={1} bg="lightGray">
                 <Footer/>
             </GridItem>
         </Grid>
