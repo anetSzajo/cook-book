@@ -1,34 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Cook Book
 
-## Getting Started
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [How to run app](#run)
+* [Features](#features)
+* [To do...](#to-do)
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## General info
+**Cook Book** is a simple app with cooking recipes. Search for recipe by entering many ingredients. Browse recipes to choose the one to cook and get more information and instruction. Check last ten searches to quickly get your favourite recipe.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies
+Next.js, TypeScript, Chakra, 
+API: https://spoonacular.com/food-api/
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## How to run app
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+To run app, please enter the following command in terminal:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+`npm install && NEXT_PUBLIC_API_KEY=<YOUR_API_KEY> npm run build && npm run start`
 
-## Learn More
+**Notice:** Please replace `<YOUR_API_KEY>` with your personal api key from https://spoonacular.com/food-api/
 
-To learn more about Next.js, take a look at the following resources:
+## Features
+* Search for recipe by ingredients
+* Browse matched recipes
+* Browse recipe information and instruction.
+* Browse last 10 searches
+* Click on last search to check the results
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## To do...
+* Update input validation (show alert if user click find button and no input entered)
+* Improve error handling
+* Implement cache for recipeInformation page
+* Implement tests for recipeInformation page
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
