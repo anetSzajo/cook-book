@@ -12,9 +12,9 @@ export default function History({queries, handleHistoryLinkClicked}: ComponentPr
              borderTop={{base: "1px solid lightgray", md: "0"}} borderBottom={{base: "1px solid lightgray", md: "0"}}
              padding="1rem">
             <Heading as="h2" size="md" d="flex" alignItems="center">
-                Last 10 recipes
+                Last 10 searches
             </Heading>
-            <Box overflowY="scroll" d="flex" alignItems="center" justifyContent="center" w="100%" paddingTop="8px">
+            <Box id="history" overflowY="scroll" d="flex" alignItems="center" justifyContent="center" w="100%" paddingTop="8px">
                 <OrderedList h="100%">
                     {queries.slice(0, 10).map((historyItem, index) =>
                         <ListItem key={`${historyItem}-${index}`}>
