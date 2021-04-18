@@ -18,7 +18,7 @@ export default function Home() {
 
     async function handleFindButton(query: string) {
         setFindButtonClicked(true);
-        if (recentQueries.includes(query)){
+        if (recentQueries.includes(query)) {
             setRecipesData(getRecipesFromHistory(query));
             return;
         }
