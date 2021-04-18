@@ -8,7 +8,7 @@ export default function NavBar() {
                 <title>Cook Book</title>
             </Head>
             <Box d="flex" mt="4" justifyContent="center" alignItems="center">
-                <Heading size="lg" fontSize="50px" textAlign={"center"}>
+                <Heading as="h1" size="lg" fontSize="50px" textAlign={"center"}>
                     Cook Book
                 </Heading>
             </Box>

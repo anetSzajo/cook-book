@@ -9,7 +9,7 @@ describe("should render history", () => {
     });
 
     it('should heading content be ', () => {
-        cy.get('h2').should('contain', 'Last 10 searches')
+        cy.get('h4').should('contain', 'Last 10 searches')
     })
     it("should render 10 elements in history", () => {
         cy.get('ul').its('length').should('not.be.greaterThan', 10)

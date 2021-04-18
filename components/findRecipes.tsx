@@ -9,10 +9,9 @@ export default function FindRecipes({handleFindButton}: ComponentProps) {
     const [query, setQuery] = React.useState("");
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setQuery(event.target.value.toLowerCase())
 
-
     return (
         <Box d="flex" flexDirection="column" alignItems="center" justifyContent="center" h="100%">
-            <Heading size="lg" marginBottom="20px" textAlign={"center"}>
+            <Heading as="h2" size="lg" marginBottom="20px" textAlign={"center"}>
                 Find a recipe by ingredients
             </Heading>
             <Input

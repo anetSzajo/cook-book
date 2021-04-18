@@ -7,7 +7,7 @@ type ComponentProps = {
 
 export default function Recipe({recipe}: ComponentProps) {
     return (
-        <Box maxW="230px" borderWidth="1px" borderRadius="lg" overflow="hidden" margin="8px">
+        <Box id="recipe" maxW="230px" borderWidth="1px" borderRadius="lg" overflow="hidden" margin="8px">
             <Image src={recipe.image} alt={recipe.title}/>
             <Box p="6">
                 <Box

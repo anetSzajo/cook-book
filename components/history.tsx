@@ -11,7 +11,7 @@ export default function History({queries, handleHistoryLinkClicked}: ComponentPr
              borderLeft={{md: "1px solid lightgray"}}
              borderTop={{base: "1px solid lightgray", md: "0"}} borderBottom={{base: "1px solid lightgray", md: "0"}}
              padding="1rem">
-            <Heading as="h2" size="md" d="flex" alignItems="center">
+            <Heading as="h4" size="md" d="flex" alignItems="center">
                 Last 10 searches
             </Heading>
             <Box id="history" overflowY="scroll" d="flex" alignItems="center" justifyContent="center" w="100%" paddingTop="8px">
