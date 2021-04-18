@@ -1,7 +1,7 @@
 import {Box, Heading} from "@chakra-ui/react";
 import Head from "next/head";
 
-export default function NavBar() {
+export default function HeadingBar() {
     return (
         <Box>
             <Head>

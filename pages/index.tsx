@@ -4,7 +4,7 @@ import History from "../components/history";
 import RecipesList from "../components/recipesList";
 import Footer from "../components/footer";
 import FindRecipes from "../components/findRecipes";
-import NavBar from "../components/navBar";
+import HeadingBar from "../components/headingBar";
 import Api from '../Api';
 import {AxiosResponse} from "axios";
 import {RecipeModel} from "../model/recipe/recipeModel";
@@ -44,8 +44,8 @@ export default function Home() {
             templateColumns={{base: "1fr", md: "repeat(4, 1fr)"}}
             gap={4}
         >
-            <GridItem colSpan={{base: 1, md: 4}} rowSpan={1} bg="lightGray">
-                <NavBar/>
+            <GridItem colSpan={{base: 1, md: 4}} rowSpan={1} bg="rgb(56, 161, 105)">
+                <HeadingBar/>
             </GridItem>
             <GridItem colSpan={{base: 1, md: 3}} rowSpan={2}>
                 <FindRecipes handleFindButton={handleFindButton}/>
