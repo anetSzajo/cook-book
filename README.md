@@ -3,7 +3,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [How to run app](#run)
+* [How to run app](#how-to-run-app)
 * [Features](#features)
 * [To do...](#to-do)
 
@@ -19,7 +19,7 @@ API: https://spoonacular.com/food-api/
 
 To run app, please enter the following command in terminal:
 
-`npm install && NEXT_PUBLIC_API_KEY=<YOUR_API_KEY> npm run build && npm run start`
+`npm install && API_KEY=<YOUR_API_KEY> npm run build && npm run start`
 
 **Notice:** Please replace `<YOUR_API_KEY>` with your personal api key from https://spoonacular.com/food-api/
 

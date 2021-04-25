@@ -5,27 +5,27 @@ import RecipesList from "../components/recipesList";
 import Footer from "../components/footer";
 import FindRecipes from "../components/findRecipes";
 import HeadingBar from "../components/headingBar";
-import Api from '../Api';
-import {AxiosResponse} from "axios";
 import {RecipeModel} from "../model/recipe/recipeModel";
 import {addQueryToHistory, getRecipesFromHistory} from "../lib/history";
 
 export default function Home() {
 
-    const [isFindButtonClicked, setFindButtonClicked] = React.useState(false);
     const [recipesData, setRecipesData] = React.useState([]);
     const [recentQueries, setRecentQueries] = React.useState(Object.keys(localStorage));
 
     async function handleFindButton(query: string) {
-        setFindButtonClicked(true);
         if (recentQueries.includes(query)) {
             setRecipesData(getRecipesFromHistory(query));
             return;
         }
         try {
-            const getRecipesData: AxiosResponse<RecipeModel[]> = await Api.Api.searchRecipesByIngredients(query) as any
-            setRecipesData(getRecipesData.data);
-            addQueryToHistory(query, getRecipesData.data);
+            const url = 'api/recipes?'
+            const recipesResponse: Response = await fetch(url + new URLSearchParams({
+                ingredients: query
+            }));
+            const recipes: RecipeModel[] = await recipesResponse.json();
+            setRecipesData(recipes);
+            addQueryToHistory(query, recipes);
             setRecentQueries(previousState => [query, ...previousState]);
         } catch (err) {
             alert("Error occurred! " + err)
@@ -34,7 +34,6 @@ export default function Home() {
 
     const handleHistoryLinkClicked = (query: string) => {
         setRecipesData(getRecipesFromHistory(query));
-        setFindButtonClicked(true);
     }
 
     return (
@@ -54,11 +53,7 @@ export default function Home() {
                 <History queries={recentQueries} handleHistoryLinkClicked={handleHistoryLinkClicked}/>
             </GridItem>
             <GridItem colSpan={{base: 1, md: 4}} rowSpan={3}>
-                {isFindButtonClicked ?
-                    <RecipesList recipes={recipesData}/>
-                    :
-                    null
-                }
+                {recipesData && <RecipesList recipes={recipesData}/>}
             </GridItem>
             <GridItem colSpan={{base: 0.5, md: 4}} rowSpan={1} bg="lightGray">
                 <Footer/>

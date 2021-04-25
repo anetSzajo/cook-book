@@ -16,7 +16,7 @@ describe("should render recipes", () => {
         cy.intercept(
             {
                 method: 'GET',
-                url: '/recipes/*',
+                url: 'api/recipes?*',
             },
             [{
                 "id": 523194,
