@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+// @ts-ignore
 describe("should render history", () => {
     beforeEach(() => {
         for (let i=0; i<12; i++){

@@ -7,7 +7,7 @@ export default function HeadingBar() {
             <Head>
                 <title>Cook Book</title>
             </Head>
-            <Box d="flex" mt="4" justifyContent="center" alignItems="center">
+            <Box>
                 <Heading as="h1" size="lg" fontSize="50px" textAlign={"center"}>
                     Cook Book
                 </Heading>
