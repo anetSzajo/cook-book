@@ -5,41 +5,45 @@ import RecipesList from "../components/recipesList";
 import Footer from "../components/footer";
 import FindRecipes from "../components/findRecipes";
 import HeadingBar from "../components/headingBar";
-import {RecipeModel} from "../model/recipe/recipeModel";
-import {addQueryToHistory, getRecipesFromHistory} from "../lib/history";
 import RecipesSkeleton from "../components/recipesSkeleton";
 
+
+let loadedFromLocalStorage;
+try {
+    loadedFromLocalStorage = JSON.parse(localStorage.getItem('queries')) || [];
+} catch (e) {
+    loadedFromLocalStorage = []
+}
 
 export default function Home() {
 
     const [recipesData, setRecipesData] = React.useState([]);
-    const [recentQueries, setRecentQueries] = React.useState(Object.keys(localStorage))
+    const [recentQueries, setRecentQueries] = React.useState(loadedFromLocalStorage)
     const [loading, setLoading] = React.useState(false)
 
 
     async function handleFindButton(query: string) {
         setLoading(true);
-        setRecentQueries(previousState => [...previousState, query]);
-        if (recentQueries.includes(query)) {
-            setRecipesData(getRecipesFromHistory(query));
-            return;
+
+        if (recentQueries?.includes(query) != true) {
+            setRecentQueries(previousState => {
+                let queries = [...previousState, query]
+                localStorage.setItem('queries', JSON.stringify(queries));
+                return queries
+            });
         }
         try {
             const url = 'api/recipes?'
             const recipesResponse: Response = await fetch(url + new URLSearchParams({
                 ingredients: query
             }));
-            const recipes: RecipeModel[] = await recipesResponse.json();
-            addQueryToHistory(query, recipes);
+            const recipes = await recipesResponse.json();
+            setLoading(false);
             setRecipesData(recipes);
-            setLoading(false)
+            return;
         } catch (err) {
             alert("Error occurred! " + err)
         }
-    }
-
-    const handleHistoryLinkClicked = (query: string) => {
-        setRecipesData(getRecipesFromHistory(query));
     }
 
     return (
@@ -57,7 +61,10 @@ export default function Home() {
                 <FindRecipes handleFindButton={handleFindButton}/>
             </GridItem>
             <GridItem colSpan={{base: 1, md: 1}} rowSpan={2}>
-                <History queries={recentQueries} handleHistoryLinkClicked={handleHistoryLinkClicked}/>
+                {recentQueries?.length > 0
+                &&
+                <History queries={recentQueries} handleHistoryLinkClicked={(query) => handleFindButton(query)}/>
+                }
             </GridItem>
             <GridItem colSpan={{base: 1, md: 4}} rowSpan={3}>
                 <Box d="flex" flexDirection="column" alignItems="center" justifyContent="center" h="100%">

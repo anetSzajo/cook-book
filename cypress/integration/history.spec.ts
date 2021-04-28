@@ -3,13 +3,17 @@
 // @ts-ignore
 describe("should render history", () => {
     beforeEach(() => {
+        let historyItems = [];
         for (let i=0; i<12; i++){
-            window.localStorage.setItem(`query${i}`, '')
+           historyItems.push(`query${i}`)
         }
+        window.localStorage.setItem(`queries`, JSON.stringify(historyItems))
         cy.visit('/');
     });
 
     it('should heading content be ', () => {
+        cy.get('input').type('query example')
+        cy.get('button').click()
         cy.get('h4').should('contain', 'Last 10 searches')
     })
     it("should render 10 elements in history", () => {
